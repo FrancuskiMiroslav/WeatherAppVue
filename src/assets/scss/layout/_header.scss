@@ -1,7 +1,7 @@
 header {
 	background-color: $primaryClr;
 	color: $tertiaryClr;
-	padding: 50px 0;
+	padding: 15px 0;
 	@include fluid-typo($min_vw, $max_vw, $min_font, $max_font);
 	h1 {
 		text-align: center;
