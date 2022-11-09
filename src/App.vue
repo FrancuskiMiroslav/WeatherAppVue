@@ -5,7 +5,7 @@
         WeatherAppVue
       </h1>
     </header>
-    <weather-card v-if="!isFetching" v-bind:weather="weather" v-cloak></weather-card>   
+    <weather-card v-if="!isFetching || isLocalStorage" v-bind:weather="weather" v-cloak></weather-card>   
   </section>
 </template>
 
@@ -17,6 +17,7 @@ export default {
       url_base: 'https://api.openweathermap.org/data/2.5/',
       weather: {},
       isFetching: true,
+      isLocalStorage: false,
     }
   },
   methods: {
@@ -42,6 +43,7 @@ export default {
 
       this.handleLocalStorage()
       this.isFetching = false
+      
     },
 
     handleLocalStorage() {
@@ -50,10 +52,11 @@ export default {
   },
 
   mounted() {
-    this.fetchWeaterData()
-
-    if (localStorage.weather) {
+    if (localStorage.weather && localStorage.weather !== 'undefined') {
+      this.isLocalStorage = true
       this.weather = JSON.parse(localStorage.getItem('weather') || '{}'); 
+    } else {
+      this.fetchWeaterData()
     }
   },
 }
